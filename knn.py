@@ -19,8 +19,8 @@ class KNN(Model):
 
     def predict1(self, x):
         dist = np.sum(np.power(self.x_train - x, 2), axis=1)
-        pairs = zip(dist, self.y_train.squeeze())
-        labels = [pair[1] for pair in heapq.nsmallest(self.k, pairs)]
+        idx = heapq.nsmallest(self.k, range(len(dist)), key=dist.__getitem__)
+        labels = self.y_train.squeeze()[idx]
         y = collections.Counter(labels).most_common(1)[0][0]
         return y
 

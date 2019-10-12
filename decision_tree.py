@@ -7,10 +7,8 @@ from model import Model
 
 def get_shannon_ent(lst):
     counter = collections.Counter(lst)
-    ent = 0
-    for count in counter.values():
-        p = float(count) / len(lst)
-        ent += -p * np.log2(p)
+    p = np.array(list(counter.values())) / len(lst)
+    ent = -np.sum(p * np.log2(p))
     return ent
 
 def split_list(lst):
